@@ -6,9 +6,11 @@
                     <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">Choose your restaurant</h2>
                 </div>
                 <div class="grid grid-cols-4 gap-4 mt-8">
-                    <a href="#" class="flex flex-col p-5 items-center justify-center rounded-md bg-red-200">
-                        restaurant 1
-                    </a>
+                    @foreach( $restaurants as $restaurant)
+                        <a href="{{ route('restaurants.tables', $restaurant->slug) }}" class="flex flex-col p-5 items-center justify-center rounded-md bg-red-200">
+                            {{ $restaurant->name }}
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </section>

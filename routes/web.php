@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurants.index');
+Route::get('/restaurants/{slug}', [RestaurantController::class, 'tables'])->name('restaurants.tables');
+Route::get('/restaurants/{slug}/table/{id}', [ReservationController::class, 'index'])->name('reservation.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
