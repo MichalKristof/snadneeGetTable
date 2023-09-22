@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Casts\TimeCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -40,21 +42,9 @@ class Restaurant extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'open_from' => 'datetime',
-        'open_to' => 'datetime',
+        'open_from' => TimeCast::class,
+        'open_to' => TimeCast::class,
     ];
-
-    public function getOpenFromTime(){
-        $hours = $this->open_from->format('H');
-        $minutes = $this->open_from->format('i');
-        return [$hours, $minutes];
-    }
-
-    public function getOpenToTime(){
-        $hours = $this->open_to->format('H');
-        $minutes = $this->open_to->format('i');
-        return [$hours, $minutes];
-    }
 
     public function getSlugOptions(): SlugOptions
     {
@@ -68,5 +58,10 @@ class Restaurant extends Model
     public function tables() : hasMany
     {
         return $this->hasMany(Table::class);
+    }
+
+    public function reservations() : hasMany
+    {
+        return $this->hasMany(Reservation::class);
     }
 }

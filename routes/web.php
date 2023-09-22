@@ -19,17 +19,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurants.index');
-Route::get('/restaurants/{slug}', [RestaurantController::class, 'tables'])->name('restaurants.tables');
-Route::get('/restaurants/{slug}/table/{id}', [ReservationController::class, 'index'])->name('reservation.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/restaurants/{slug}', [ReservationController::class, 'index'])->name('reservation.index');
+    Route::get('/reservations', [ReservationController::class, 'show'])->name('reservation.show');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile/reservations', [ProfileController::class, 'reservations'])->name('profile.reservations');
+    Route::get('/profile/cancel-reservation/{id}', [ProfileController::class, 'cancelReservation'])->name('profile.cancel-reservation');
 });
 
 require __DIR__.'/auth.php';

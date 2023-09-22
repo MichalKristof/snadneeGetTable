@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('slug');
             $table->string('address');
             $table->integer('capacity');
-            $table->datetime('open_from');
-            $table->datetime('open_to');
+            $table->time('open_from');
+            $table->time('open_to');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
             $table->softDeletes();

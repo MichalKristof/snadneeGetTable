@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Table extends Model
@@ -19,7 +20,7 @@ class Table extends Model
     protected $fillable = [
         'restaurant_id',
         'table_number',
-        'capacity',
+        'table_capacity',
         'reserved',
     ];
 
@@ -41,14 +42,13 @@ class Table extends Model
         'reserved' => 'boolean',
     ];
 
-    public function restaurant() : BelongsTo
+    public function reservation() : belongsTo
     {
-        return $this->belongsTo(Restaurant::class);
+        return $this->belongsTo(Reservation::class);
     }
 
-    public function user() : hasOne
+    public function restaurants() : hasMany
     {
-        return $this->hasOne(User::class);
+        return $this->hasMany(Restaurant::class);
     }
-
 }

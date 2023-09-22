@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Reservation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +57,20 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function reservations() : View
+    {
+        return view('profile.reservations', [
+            'reservations' => Reservation::with('table','restaurant', 'user')->where('user_id', Auth::user()->id)->orderBy('created_at', 'asc')->get(),
+        ]);
+    }
+
+    public function cancelReservation($id) : RedirectResponse
+    {
+        $reservation = Reservation::find($id);
+        $reservation->delete();
+
+        return Redirect::route('profile.reservations')->with('status', 'reservation-cancelled');
     }
 }

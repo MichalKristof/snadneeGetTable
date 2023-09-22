@@ -16,8 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('restaurant_id')->nullable();
             $table->foreign('restaurant_id')->references('id')->on('restaurants');
             $table->integer('table_number');
-            $table->integer('capacity');
+            $table->integer('table_capacity');
             $table->boolean('reserved')->default(false);
+
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
             $table->softDeletes();

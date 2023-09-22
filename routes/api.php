@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\DateController;
+use App\Http\Controllers\Api\DateTableAvailableController;
 use App\Http\Controllers\Api\ReservationController;
+use App\Http\Controllers\Api\TimeTableAvailableController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/date', [DateController::class, 'index']);
+
+Route::get('/find-table', [DateTableAvailableController::class, 'index']);
 Route::get('/reservation', [ReservationController::class, 'index']);
+
 

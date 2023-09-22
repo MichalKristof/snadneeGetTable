@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('restaurant_id')->references('id')->on('restaurants');
             $table->foreign('table_id')->references('id')->on('tables');
-            $table->dateTime('time_from')->nullable();
-            $table->dateTime('time_to')->nullable();
+            $table->time('time_from')->nullable();
+            $table->time('time_to')->nullable();
             $table->date('date')->nullable();
 
             $table->timestamp('created_at')->useCurrent();

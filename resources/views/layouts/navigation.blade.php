@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="fixed top-0 z-10 w-full bg-gray-300">
+<nav x-data="{ open: false }" class="sticky-top z-10 w-full bg-gray-300">
 <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -44,6 +44,9 @@
 
                     <x-slot name="content">
                         @auth
+                            <x-dropdown-link :href="route('profile.reservations')">
+                                {{ __('Reservations') }}
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
@@ -97,6 +100,9 @@
 
             <div class="mt-3 space-y-1">
                 @auth
+                    <x-responsive-nav-link :href="route('profile.reservations')">
+                        {{ __('Reservations') }}
+                    </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>

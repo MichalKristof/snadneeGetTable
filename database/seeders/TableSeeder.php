@@ -14,16 +14,16 @@ class TableSeeder extends Seeder
      */
     public function run(): void
     {
-        $restaurants = Restaurant::all('id');
+        $restaurants = Restaurant::all('id','capacity');
 
-        foreach ($restaurants as $key => $restaurantId){
-            $number_of_tables = rand(5, 10);
+        $tableCapacities = [2, 4, 8];
 
-            for($i = 1; $i <= $number_of_tables; $i++){
+        foreach ($restaurants as $restaurant){
+            for($i = 1; $i <= $restaurant->capacity; $i++){
                 DB::table('tables')->insert([
-                    'restaurant_id' => $restaurantId->id,
+                    'restaurant_id' => $restaurant->id,
                     'table_number' => $i,
-                    'capacity' => 2,
+                    'table_capacity' => $tableCapacities[array_rand($tableCapacities)],
                 ]);
             }
         }

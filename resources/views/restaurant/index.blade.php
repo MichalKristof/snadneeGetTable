@@ -7,11 +7,12 @@
                 </div>
                 <div class="grid grid-cols-4 gap-4 mt-8">
                     @foreach( $restaurants as $restaurant)
-                        <a href="{{ route('restaurants.tables', $restaurant->slug) }}" class="flex flex-col p-5 items-center justify-center rounded-md bg-red-200">
+                        <a href="{{ route('reservation.index', $restaurant->slug) }}" class="flex flex-col p-5 items-center justify-center rounded-md bg-red-200">
                             {{ $restaurant->name }}
                         </a>
                     @endforeach
                 </div>
+                <span class="mt-5">You must been logged in to make a reservation</span>
             </div>
         </section>
     </div>
