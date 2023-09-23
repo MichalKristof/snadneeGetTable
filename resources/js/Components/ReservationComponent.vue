@@ -1,103 +1,145 @@
 <template>
-    <div class="w-full flex flex-col items-center py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6"
+    <div class="w-full flex flex-col items-center px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6"
          :class="{ 'blur-effect': loading }">
-        <form @submit.prevent="findTable" v-if="showDateTime"
-              class="flex flex-col items-center justify-center w-full">
-            <div class="w-full flex flex-col space-y-8">
-                <div class="flex flex-col w-full">
-                    <label class="text-xl font-medium text-gray-900">
-                        Date
-                    </label>
-                    <div class="w-full shadow-xl">
-                        <vue-date-picker
-                            :model-value="selectedDate"
-                            @update:model-value="handleDate"
-                            placeholder="Date of reservation"
-                            format="d.M.Y"
-                            :min-date="new Date()"
-                            :enable-time-picker="false"
-                            :auto-apply="true"
-                            requireds
-                        ></vue-date-picker>
-                    </div>
-                </div>
-                <div class="flex flex-col w-full my-5">
-                    <label class="text-xl font-medium text-gray-900">
-                        Time
-                    </label>
-
-                    <div class="w-full">
-                        <div class="grid grid-cols-3 md:grid-cols-5 gap-5">
-                            <button type="button" @click="handleTime(time)" v-for="time in times"
-                                    class="flex items-center justify-center rounded-xl bg-gray-200 hover:bg-green-200 focus:bg-green-200 duration-300">
-                                {{ time }}
-                            </button>
-                        </div>
-                    </div>
-
-                    <p class="flex items-center justify-center mt-3 text-sm text-gray-500">
-                        Note: The default reservation time is 2 hours.
-                    </p>
-                </div>
-            </div>
-            <button type="submit" class="w-6/12 mt-10 bg-gray-200 hover:bg-gray-300 py-2 px-4 rounded-xl">
-                <span class="text-gray-900 font-bold">Search</span>
-            </button>
-        </form>
-
-        <transition name="slide-fade">
-            <div v-if="showTable" class="flex flex-col w-full my-10">
-                <div class="w-full flex flex-col space-y-3 my-10">
-                    <span class="text-xl font-medium text-gray-900">
-                        Selected date: {{ selectedDate }}
-                    </span>
-                    <span class="text-xl font-medium text-gray-900">
-                        Selected time: {{ selectedTime }}
-                    </span>
-                </div>
-
-                <button @click="goBack()" type="button"
-                        class="w-20 text-white mb-5 bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                    Go Back
-                </button>
-
-                <label class="text-xl font-medium text-gray-900">
-                    Choose table
-                </label>
-
-                <div class="w-full">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
-                        <div @click="table.reservation ? null : chooseTable(table.id)" v-for="table in tables"
-                             :key="table.id"
-                             class="relative flex flex-col gap-3 items-center justify-center p-3 rounded-md shadow-md bg-gray-200 hover:scale-105 focus:scale-105 focus:bg-gray-50 cursor-pointer duration-300">
-                            <div v-if="table.reservation" class="flex flex-col items-center justify-center">
-                                <span class="text-xl font-medium text-red-500">Reserved</span>
+        <div class="w-full mx-auto flex flex-col items-center justify-center bg-white rounded-t-lg p-8" v-if="showForm">
+            <form @submit.prevent="findTable" :class="{ 'blur-effect': !showDateTime }" class="w-full">
+                <div class="flex flex-col items-center">
+                    <div class="w-full flex flex-col space-y-8">
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-medium text-gray-900">Date</h2>
+                            <div class="w-full shadow-xl">
+                                <vue-date-picker
+                                    :model-value="selectedDate"
+                                    @update:model-value="handleDate"
+                                    placeholder="Date of reservation"
+                                    format="d.M.Y"
+                                    :min-date="new Date()"
+                                    :enable-time-picker="false"
+                                    :auto-apply="true"
+                                    required
+                                ></vue-date-picker>
                             </div>
-                            <span class="absolute bottom-2 right-2 text-base font-bold text-gray-800">#{{
-                                    table.table_number
-                                }}</span>
-
+                        </div>
+                        <div class="flex flex-col my-5">
+                            <h2 class="text-xl font-medium text-gray-900">Time</h2>
+                            <div class="w-full">
+                                <div class="grid grid-cols-3 md:grid-cols-5 gap-5">
+                                    <button
+                                        type="button"
+                                        @click="handleTime(time)"
+                                        v-for="time in times"
+                                        class="flex items-center justify-center rounded-xl px-3 py-2 bg-gray-200 border-2 border-transparent hover:border-indigo-800 focus:border-indigo-800 duration-300"
+                                    >
+                                        {{ time }}
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="flex items-center justify-center mt-3 text-sm text-gray-500">
+                                Note: The default reservation time is 2 hours.
+                            </p>
                         </div>
                     </div>
+                    <button
+                        v-if="showDateTime"
+                        type="submit"
+                        class="w-24 mt-10 px-3 py-2 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-full transform hover:scale-105 transition duration-500 hover:shadow-xl"
+                    >
+                        Search
+                    </button>
+
                 </div>
-                <button v-if="showSubmitBtn"
-                        class="w-6/12 mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        @click="makeReservation">
-                    Make reservation
-                </button>
-            </div>
-        </transition>
+            </form>
+
+            <transition name="slide-fade">
+                <div :class="{ 'blur-effect': !showTable }" v-if="tables"
+                     class="flex flex-col w-full my-4 items-center">
+                    <div class="w-full flex justify-end" v-if="showTable">
+                        <svg @click="goBack()" xmlns="http://www.w3.org/2000/svg"
+                             class="h-12 w-12 cursor-pointer bg-gray-100 rounded-full" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                        </svg>
+                    </div>
+
+                    <div class="w-full flex flex-col my-5">
+                        <h2 class="text-xl font-medium text-gray-900">Table</h2>
+                        <div class="w-full">
+                            <div class="grid grid-cols-3 md:grid-cols-5 gap-5">
+                                <div v-for="table in tables" :key="table.id">
+                                    <button v-if="!table.reservation" @click="chooseTable(table.id, table.table_number)"
+                                            class="flex items-center justify-center rounded-xl px-3 py-2 bg-gray-200 border-2 border-transparent hover:border-indigo-800 focus:border-indigo-800 duration-300"
+                                    >{{ table.table_number }}
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="flex items-center justify-center mt-3 text-sm text-gray-500">
+                                Please select table
+                            </p>
+                        </div>
+                    </div>
+
+                    <button
+                        v-if="btnNext"
+                        @click="buttonNext"
+                        class="w-24 mt-10 px-3 py-2 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-full transform hover:scale-105 transition duration-500 hover:shadow-xl"
+                    >
+                        Next
+                    </button>
+                </div>
+            </transition>
+
+            <transition name="slide-fade">
+                <div class="flex flex-col w-full items-center" v-if="showSum">
+                    <div class="w-full flex justify-end" v-if="showSum">
+                        <svg @click="goBackSum()" xmlns="http://www.w3.org/2000/svg"
+                             class="h-12 w-12 cursor-pointer bg-gray-100 rounded-full" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                        </svg>
+                    </div>
+                    <div class="w-full flex flex-col justify-center items-center space-y-2 my-5">
+                        <h2 class="text-xl font-medium text-gray-900">Sumarization</h2>
+                        <div class="w-full flex flex-col space-x-4">
+                            <div class="flex flex-col space-y-2">
+                                <span class="text-base text-xl text-gray-800">Date</span>
+                                <span class="text-base text-base text-gray-600">{{ selectedDate }}</span>
+                            </div>
+                            <div class="flex flex-col space-y-2">
+                                <span class="text-base text-xl text-gray-800">Time</span>
+                                <span class="text-base text-base text-gray-600">{{ selectedTime }}</span>
+                            </div>
+                            <div class="flex flex-col space-y-2">
+                                <span class="text-base text-xl text-gray-800">Table</span>
+                                <span class="text-base text-base text-gray-600">{{ selectedTableNumber }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        @click="makeReservation"
+                        class="mt-10 px-3 py-2 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-full transform hover:scale-105 transition duration-500 hover:shadow-xl"
+                    >
+                        Make Reservation
+                    </button>
+                </div>
+            </transition>
+        </div>
+
+        <div v-if="!showForm" class="w-full flex flex-col items-center px-4 mx-auto max-w-screen-xl lg:px-6">
+            <span class="text-4xl font-bold text-gray-800">Table successfully reserved !</span>
+            <a :href="routeHome.value"
+               class="mt-10 px-3 py-2 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-full transform hover:scale-105 transition duration-500 hover:shadow-xl"
+            >
+                Go to home page
+            </a>
+            <a :href="routeReservations.value"
+               class="mt-10 px-3 py-2 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-full transform hover:scale-105 transition duration-500 hover:shadow-xl"
+            >
+                See all my reservations
+            </a>
+        </div>
     </div>
 
-    <div v-show="successReservation" class="w-full flex flex-col items-center py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-        <span class="text-4xl font-bold text-green-400">Table successfully reserved</span>
-        <a href="/" class="w-6/12 mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Go to home page
-        </a>
-        <a href="" class="w-6/12 mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            See all my reservations
-        </a>
-    </div>
 
     <transition name="fade">
         <div v-show="loading" role="status" class="absolute bottom-3 right-3">
@@ -118,7 +160,7 @@
 
 
 <script setup>
-import {ref, defineProps, computed} from 'vue';
+import {ref, defineProps} from 'vue';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -136,6 +178,12 @@ const props = defineProps({
         like: Number,
         required: true,
     },
+    routeReservations: {
+        type: String,
+    },
+    routeHome: {
+        type: String,
+    },
 });
 
 const loading = ref(false);
@@ -143,17 +191,22 @@ const loading = ref(false);
 const restaurant = ref(props.restaurant);
 const times = ref(props.times);
 const user = ref(props.auth);
+const routeReservations = ref(props.routeReservations);
+const routeHome = ref(props.routeHome);
 
 const tables = ref(null);
 
 const selectedDate = ref();
 const selectedTime = ref();
 const selectedTable = ref();
+const selectedTableNumber = ref();
 
+const showForm = ref(true);
 const showDateTime = ref(true);
 const showTable = ref(false);
 const showSubmitBtn = ref(false);
-const successReservation = ref(false);
+const btnNext = ref(false);
+const showSum = ref(false);
 
 const handleDate = (modelData) => {
     const year = modelData.getFullYear();
@@ -185,20 +238,29 @@ const findTable = () => {
     }).finally(() => {
         showDateTime.value = false;
         showTable.value = true;
+        btnNext.value = true;
         loading.value = false;
     });
 }
 
-const chooseTable = (tableId) => {
+const chooseTable = (tableId, tableNumber) => {
     selectedTable.value = tableId;
+    selectedTableNumber.value = tableNumber;
     showSubmitBtn.value = true;
 }
 
-const makeReservation = () => {
+const buttonNext = () => {
     if (selectedTable.value == null) {
         alert('Please select another available table');
         return;
     }
+    btnNext.value = false;
+    showTable.value = false;
+    showSum.value = true;
+}
+
+const makeReservation = () => {
+    showSum.value = false;
     loading.value = true;
     axios.get(apiUrl + '/reservation', {
         params: {
@@ -209,20 +271,23 @@ const makeReservation = () => {
             date: selectedDate.value,
         },
     }).then(() => {
-        successReservation.value = true;
     }).catch(function (error) {
         console.error(error);
     }).finally(() => {
-        showTable.value = false;
-        successReservation.value = true;
         clearData();
+        showForm.value = false;
         loading.value = false;
     });
 }
 
 const goBack = () => {
+    tables.value = null;
     showTable.value = false;
     showDateTime.value = true;
+}
+const goBackSum = () => {
+    showTable.value = true;
+    showSum.value = false;
 }
 
 const clearData = () => {
@@ -230,12 +295,13 @@ const clearData = () => {
     selectedDate.value = null;
     selectedTime.value = null;
     selectedTable.value = null;
+    selectedTableNumber.value = null;
 }
 </script>
 
 <style scoped>
 .blur-effect {
-    filter: blur(2px);
+    filter: blur(1px);
     transition: filter 0.3s ease-in-out;
     pointer-events: none;
     opacity: 0.9;
@@ -257,6 +323,11 @@ const clearData = () => {
 
 .slide-fade-enter-from {
     transform: translateY(-40px);
+    opacity: 0;
+}
+
+.slide-fade-enter-out {
+    transform: translateY(40px);
     opacity: 0;
 }
 </style>

@@ -17,16 +17,16 @@
 <body class="font-sans antialiased">
 @include('layouts.navigation')
 
-<div class="min-h-screen">
+<div class="min-h-screen mt-20">
     <!-- Page Heading -->
     @isset( $header)
-        <header class="bg-white shadow">
+        <header class="bg-gray-100 shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 {{ $header }}
             </div>
         </header>
     @endisset
-    <main class="w-full">
+    <main class="w-full bg-gray-100">
         {{ $slot }}
     </main>
 </div>

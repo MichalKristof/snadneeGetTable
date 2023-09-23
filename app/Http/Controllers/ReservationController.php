@@ -26,9 +26,4 @@ class ReservationController extends Controller
 
         return view('reservation.index', compact('restaurant','times'));
     }
-
-    public function show() : View
-    {
-        dd('cauko');
-    }
 }

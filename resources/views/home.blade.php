@@ -1,37 +1,58 @@
 <x-app-layout>
-    <div class="min-h-screen flex flex-col w-full pt-6 sm:pt-0 bg-gray-100">
-        <section class="bg-white dark:bg-gray-900 py-10">
-            <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
-                <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
-                    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Hungry? Reserve Your Table with Ease!</h2>
-                    <p class="mb-4">Tired of the hassle of finding the perfect table at your favorite restaurant? We've got you covered with our hassle-free reservation system. Say goodbye to waiting – say hello to convenience! Join us and make dining reservations a breeze.</p>
-                    <p>In this adjusted version, the word "reservation" is used twice to make it clear that your website provides a reservation system. This should help users understand the primary function of your website immediately.</p>
-                </div>
-                <div class="grid grid-cols-2 gap-4 mt-8">
-                    <div class="w-full rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
-                            <!-- Background Circle -->
-                            <circle cx="100" cy="100" r="90" fill="#3498db" />
+    <div class="w-full min-h-screen">
+        <section class="bg-gray-100 py-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-semibold text-gray-800 text-center mb-8">Book Your Dinner Table With Ease</h2>
 
-                            <!-- Reservation Icon -->
-                            <rect x="75" y="55" width="50" height="50" rx="10" ry="10" fill="#fff" />
-                            <path d="M125 65 L100 90 L75 65 Z" fill="#3498db" />
+                <p class="text-gray-600 text-center mb-12">
+                    Experience a delightful dining experience. Reserve your table in just a few simple steps.
+                </p>
 
-                            <!-- Text -->
-                            <text x="100" y="150" font-size="20" fill="#fff" text-anchor="middle">Online Reservations</text>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white shadow-lg rounded-lg p-6 text-center hover:scale-105 duration-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 h-16 text-purple-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 15a7 7 0 110-14 7 7 0 010 14zm0-12a1 1 0 00-1 1v5a1 1 0 002 0V6a1 1 0 00-1-1z"/>
                         </svg>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Easy Booking</h3>
+                        <p class="text-gray-600">Book your table quickly and conveniently through our website.</p>
                     </div>
-                    <div class="mt-4 w-full lg:mt-10 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
-                            <rect x="30" y="70" width="90" height="20" rx="5" ry="5" fill="#e74c3c" />
-                            <rect x="50" y="50" width="50" height="20" rx="5" ry="5" fill="#f39c12" />
-                            <rect x="60" y="20" width="30" height="30" rx="5" ry="5" fill="#2ecc71" />
-                            <circle cx="45" cy="25" r="5" fill="#2ecc71" />
-                            <circle cx="105" cy="25" r="5" fill="#2ecc71" />
+
+                    <div class="bg-white shadow-lg rounded-lg p-6 text-center hover:scale-105 duration-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 h-16 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 15a7 7 0 110-14 7 7 0 010 14zm-1-9a1 1 0 00-1 1v3a1 1 0 002 0V9a1 1 0 00-1-1z"/>
                         </svg>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Variety of Choices</h3>
+                        <p class="text-gray-600">Explore a wide range of restaurants and cuisines for your dinner.</p>
+                    </div>
+
+                    <div class="bg-white shadow-lg rounded-lg p-6 text-center hover:scale-105 duration-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 h-16 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 15a7 7 0 110-14 7 7 0 010 14zm-1-10a1 1 0 00-1 1h2a1 1 0 000-2h-2a1 1 0 00-1 1z"/>
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Special Offers</h3>
+                        <p class="text-gray-600">Discover exclusive deals and discounts on your bookings.</p>
+                    </div>
+
+                    <div class="bg-white shadow-lg rounded-lg p-6 text-center hover:scale-105 duration-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 h-16 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 15a7 7 0 110-14 7 7 0 010 14zm-2-9a1 1 0 012 0h2a1 1 0 110 2h-2a1 1 0 01-2 0z"/>
+                        </svg>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Quality Service</h3>
+                        <p class="text-gray-600">Enjoy top-notch service and a memorable dining experience.</p>
                     </div>
                 </div>
             </div>
         </section>
+
+
+        <div class="flex justify-center items-center my-10">
+            <a href="{{ route('restaurants.index') }}"
+                class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-full transform hover:scale-105 transition duration-500 hover:shadow-xl"
+            >
+                Find restaurant
+            </a>
+        </div>
+
+
     </div>
 </x-app-layout>

@@ -62,7 +62,7 @@ class ProfileController extends Controller
     public function reservations() : View
     {
         return view('profile.reservations', [
-            'reservations' => Reservation::with('table','restaurant', 'user')->where('user_id', Auth::user()->id)->orderBy('created_at', 'asc')->get(),
+            'reservations' => Reservation::with('table','restaurant', 'user')->where('user_id', Auth::user()->id)->orderBy('created_at','desc')->get(),
         ]);
     }
 
