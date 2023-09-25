@@ -45,8 +45,7 @@
 
             <div class="flex justify-center items-center my-10">
                 <a href="{{ route('restaurants.index') }}"
-                   class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-full transform hover:scale-105 transition duration-500 hover:shadow-xl"
-                >
+                   class="flex items-center justify-center px-3 py-2 text-center bg-gradient-to-r from-purple-500 to-red-500 border-2 border-gray-100 hover:border-gray-800 text-white font-semibold py-2 px-4 rounded-2xl hover:shadow-xl duration-500">
                     Find restaurant
                 </a>
             </div>

@@ -13,8 +13,9 @@
                             class="w-full flex flex-col items-center justify-center rounded-xl p-6 md:p-8 bg-gray-100 border-2 border-transparent duration-300"
                             :disabled="isTableReserved(table)"
                     >{{ table.table_number }}
-                        <span v-if="isTableReserved(table)" class="text-xs text-indigo-800">Reserved</span>
-                        <span v-else class="text-xs text-indigo-800">Table available</span>
+                        <span v-if="isTableReserved(table)" class="text-xs text-red-500">Reserved</span>
+                        <span v-else-if="isTableAvailableOneHour(table)" class="text-xs text-orange-500">Available only for 1 hour</span>
+                        <span v-else class="text-xs text-indigo-800">Available</span>
                     </button>
                 </div>
             </div>
@@ -26,7 +27,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits, watch } from 'vue';
+import {ref, defineProps, defineEmits, watch} from 'vue';
 
 const props = defineProps({
     tables: {
@@ -42,33 +43,35 @@ const props = defineProps({
 const tables = ref(props.tables);
 const localSelectedTime = ref(props.selectedTime);
 const selectedTable = ref();
+const tableNumber = ref();
+const reservationTimeTo = ref();
 
 const emit = defineEmits(['update:table']);
 
-const selectTable = (table) => {
-    if (!table.reservation) {
-        selectedTable.value = table.id;
-        emit('update:table', [table.id, table.table_number]);
-    }
-};
-
 const isTableReserved = (table) => {
-    if (!table.reservation) {
-        return false;
-    }
-
-    for (const reservation of table.reservation) {
-        if (
-            localSelectedTime.value >= reservation.time_from &&
-            localSelectedTime.value < reservation.time_to
-        ) {
-            return true;
-        }
-    }
-    return false;
+    return table.isReserved;
 };
+
+const isTableAvailableOneHour = (table) => {
+    return table.nextReservation;
+};
+
 const areAllTablesReserved = () => {
     return tables.value.every((table) => isTableReserved(table));
+};
+
+const selectTable = (table) => {
+    if (!table.isReserved) {
+        selectedTable.value = table.id;
+        reservationTimeTo.value = table.reserveTimeTo;
+        tableNumber.value = table.table_number;
+
+        emit('update:table', [
+            selectedTable.value,
+            tableNumber.value,
+            reservationTimeTo.value
+        ]);
+    }
 };
 
 watch(() => props.selectedTime, (newSelectedTime) => {

@@ -3,37 +3,52 @@
         class="relative w-full flex flex-col items-center px-4 mx-auto max-w-screen-xl py-24 lg:py-32 lg:px-6 bg-white rounded-xl shadow-xl">
         <div class="w-full flex flex-col items-center" :class="{ 'blur-effect': loading }"
              v-if="!successReservation">
-            <date-component v-if="!showSumElement" @update:date="updateDate"></date-component>
-            <time-component v-if="!showSumElement" :times="times" @update:time="updateTime"></time-component>
-            <table-component v-if="showTableComponent && !showSumElement" :selectedTime="selectedTime" :tables="tables"
-                             @update:table="updateTable"></table-component>
-            <button
-                v-if="showSumBtn"
-                @click="confirmData"
-                type="submit"
-                class="flex items-center justify-center w-full md:w-5/12 w-24 mt-10 mb-14 px-3 py-2 text-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-2xl transform hover:scale-105 transition duration-500 hover:shadow-xl">
-                Confirm
-            </button>
+            <div v-show="!showSumElement" class="w-full flex flex-col items-center justify-center">
+                <date-component @update:date="updateDate"></date-component>
+                <time-component :times="times" @update:time="updateTime"></time-component>
+                <table-component v-show="showTableComponent" :selectedTime="selectedTime"
+                                 :tables="tables"
+                                 @update:table="updateTable"></table-component>
+                <div class="w-full md:w-10/12 flex flex-inline items-center justify-between gap-5 mt-10">
+                    <button type="button" @click="goToRestaurants()"
+                            class="flex items-center justify-center px-3 py-2 text-center bg-gray-400 border-2 border-gray-100 hover:border-gray-800 text-white font-semibold py-2 px-4 rounded-2xl hover:shadow-xl duration-500">
+                        Back to restaurants
+                    </button>
+                    <button
+                        v-if="showSumBtn"
+                        @click="confirmData"
+                        type="submit"
+                        class="flex items-center justify-center px-3 py-2 text-center bg-gradient-to-r from-purple-500 to-red-500 border-2 border-gray-100 hover:border-gray-800 text-white font-semibold py-2 px-4 rounded-2xl hover:shadow-xl duration-500">
+                        Confirm
+                    </button>
+                </div>
+            </div>
 
-            <div v-if="showSumElement" class="relative w-full md:w-10/12 flex flex-col items-center gap-5">
+            <div v-if="showSumElement" class="w-full md:w-10/12 flex flex-col items-center gap-5">
                 <span class="text-2xl font-medium text-gray-900 underline">Summary</span>
                 <div class="w-full flex flex-inline items-center justify-center gap-2">
                     <span class="text-xl font-semibold text-gray-900">Date:</span>
-                    <span class="text-lg text-indigo-800">{{ selectedDate }}</span>
+                    <span class="text-lg font-semibold text-purple-600">{{ selectedDate }}</span>
                 </div>
                 <div class="w-full flex flex-inline items-center justify-center gap-2">
                     <span class="text-xl font-semibold text-gray-900">Time:</span>
-                    <span class="text-lg text-indigo-800">{{ selectedTime }}</span>
+                    <span class="text-lg font-semibold text-purple-600">{{ selectedTime }} - {{ selectedTable[2] }}</span>
                 </div>
                 <div class="w-full flex flex-inline items-center justify-center gap-2">
                     <span class="text-xl font-semibold text-gray-900">Table number:</span>
-                    <span class="text-lg text-indigo-800">{{ selectedTable[1] }}</span>
+                    <span class="text-lg font-semibold text-purple-600">{{ selectedTable[1] }}</span>
                 </div>
-                <button
-                    @click="makeReservation"
-                    class="flex items-center justify-center w-full md:w-5/12 w-24 mt-10 mb-14 px-3 py-2 text-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-2xl transform hover:scale-105 transition duration-500 hover:shadow-xl">
-                    Make Reservation
-                </button>
+                <div class="flex w-full items-center justify-between gap-5 mt-10">
+                    <button type="button" @click="goBack()"
+                            class="flex items-center justify-center px-3 py-2 text-center bg-gray-400 border-2 border-gray-100 hover:border-gray-800 text-white font-semibold py-2 px-4 rounded-2xl hover:shadow-xl duration-500">
+                        Back
+                    </button>
+                    <button
+                        @click="makeReservation"
+                        class="flex items-center justify-center px-3 py-2 text-center bg-gradient-to-r from-purple-500 to-red-500 border-2 border-gray-100 hover:border-gray-800 text-white font-semibold py-2 px-4 rounded-2xl hover:shadow-xl duration-500">
+                        Make Reservation
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -42,7 +57,7 @@
                 <span class="w-full text-center text-3xl font-semibold text-indigo-900">Your table is successfully reserved!</span>
                 <span class="w-full text-center text-lg font-semibold text-gray-700">Have a great time and enjoy your meal.</span>
                 <button @click="redirectHome()"
-                        class="flex items-center justify-center w-full md:w-5/12 w-24 mt-10 mb-14 px-3 py-2 text-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-2xl transform hover:scale-105 transition duration-500 hover:shadow-xl">
+                        class="flex items-center justify-center px-3 py-2 text-center bg-gradient-to-r from-purple-500 to-red-500 border-2 border-gray-100 hover:border-gray-800 text-white font-semibold py-2 px-4 rounded-2xl hover:shadow-xl duration-500">
                     Home page
                 </button>
 
@@ -84,12 +99,6 @@ const props = defineProps({
         like: Number,
         required: true,
     },
-    routeReservations: {
-        type: String,
-    },
-    routeHome: {
-        type: String,
-    },
 });
 
 
@@ -98,8 +107,6 @@ const loading = ref(false);
 const restaurant = ref(props.restaurant);
 const times = ref(props.times);
 const user = ref(props.auth);
-const routeReservations = ref(props.routeReservations);
-const routeHome = ref(props.routeHome);
 const tables = ref(null);
 
 const showTableComponent = ref(false);
@@ -148,6 +155,13 @@ const updateTable = (updatedTable) => {
     showSumBtn.value = true;
 };
 
+const goBack = () => {
+    showSumElement.value = false;
+    showTableComponent.value = true;
+    showSumBtn.value = true;
+    loading.value = false;
+}
+
 const confirmData = () => {
     loading.value = true;
     showSumBtn.value = false;
@@ -174,6 +188,10 @@ const makeReservation = () => {
         successReservation.value = true;
         loading.value = false;
     });
+}
+
+const goToRestaurants = () => {
+    window.location.href = '/restaurants';
 }
 
 const redirectHome = () => {

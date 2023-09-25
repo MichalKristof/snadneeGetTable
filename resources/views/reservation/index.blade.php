@@ -16,8 +16,6 @@
         <reservation-component :restaurant="{{ json_encode( $restaurant->id ) }}"
                                :times="{{ json_encode( $times ) }}"
                                :auth="{{ json_encode( Auth::id() ) }}"
-                               :routeReservations="{{ json_encode(route('profile.reservations')) }}"
-                               :routeHome="{{ json_encode(route('home')) }}"
         ></reservation-component>
     </div>
 </x-app-layout>

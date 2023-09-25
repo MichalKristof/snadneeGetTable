@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
+use App\Models\Restaurant;
 use App\Models\Table;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -18,20 +20,38 @@ class DateTableAvailableController extends Controller
             $date = $request->input('date');
 
             $tables = Table::where('restaurant_id', $restaurant)->get();
+            $openHour = Restaurant::where('id', $request->input('restaurant'))->first()->open_to;
 
             if ($tables) {
                 foreach ($tables as $table) {
                     $reservations = Reservation::where('restaurant_id', $restaurant)
                         ->where('date', $date)
                         ->where('table_id', $table->id)
-                        ->where(function ($query) use ($time) {
-                            $query->where('time_from', '<=', $time)
-                                ->where('time_to', '>', $time);
-                        })
+                        ->orderBy('time_from')
                         ->get();
 
                     if (count($reservations) > 0) {
                         $table->reservation = $reservations;
+                        $tableReserved = $this->isTableReserved($table, $time);
+
+                        if(!$tableReserved){
+                            foreach($table->reservation as $reservation) {
+                                if(strtotime($reservation->time_from) === strtotime($time) + 3600) {
+                                    $table->nextReservation = true;
+                                    $table->reserveTimeTo = $reservation->time_from;
+                                }
+                            }
+                        }else{
+                            $table->isReserved = $tableReserved;
+                        }
+                    } else {
+                        $table->isReserved = false;
+                        if(Carbon::parse($openHour)->greaterThan(Carbon::parse($time)->addHours(2))){
+                            $table->reserveTimeTo = Carbon::parse($time)->addHours(2)->format('H:i');
+                        }else{
+                            $table->reserveTimeTo = $openHour;
+                        }
+
                     }
                 }
 
@@ -55,4 +75,16 @@ class DateTableAvailableController extends Controller
             ]);
         }
     }
+
+    private function isTableReserved($table, $time)
+    {
+        foreach ($table->reservation as $reservation) {
+            if ($time >= $reservation->time_from && $time < $reservation->time_to) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
+
+

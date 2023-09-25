@@ -18,10 +18,15 @@
                             <h3 class="text-xl font-semibold text-gray-800">{{ $restaurant->name }}</h3>
                             <p class="flex flex-inline items-center text-gray-600">
                                 <img class="w-7 h7 mr-2" src="{{ asset('img/map-point.svg') }}" alt="Map point">
-                                {{ $restaurant->address }}</p>
+                                {{ $restaurant->address }}
+                            </p>
                             <p class="flex flex-wrap items-center text-gray-600">
                                 <img class="w-7 h7 mr-2" src="{{ asset('img/time.svg') }}" alt="Map point">
-                                {{ $restaurant->open_from }} - {{ $restaurant->open_to }}</p>
+                                {{ $restaurant->open_from }} - {{ $restaurant->open_to }}
+                            </p>
+                            <p class="flex flex-wrap items-center text-gray-600">
+                                Tables: {{ $restaurant->capacity }}
+                            </p>
                         </a>
                     @endforeach
                 </div>

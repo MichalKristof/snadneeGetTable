@@ -21,7 +21,7 @@ class RestaurantFactory extends Factory
             'address' => $this->faker->address(),
             'capacity' => $this->faker->numberBetween(3, 10),
             'open_from' => date('Y-m-d H:i:s', strtotime('16:00:00')),
-            'open_to' => date('Y-m-d H:i:s', strtotime('23:00:00')),
+            'open_to' => date('Y-m-d H:i:s', strtotime('20:00:00')),
         ];
     }
 }
