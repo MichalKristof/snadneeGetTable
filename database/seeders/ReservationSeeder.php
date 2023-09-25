@@ -19,8 +19,8 @@ class ReservationSeeder extends Seeder
                 'user_id' => 1,
                 'restaurant_id' => 1,
                 'table_id' => 1,
-                'time_from' => date('H:i', strtotime('20:00:00')),
-                'time_to' => date('H:i:s', strtotime('22:00:00')),
+                'time_from' => date('H:i', strtotime('20:00')),
+                'time_to' => date('H:i:s', strtotime('22:00')),
                 'date' => date('Y-m-d'),
             ]
         );

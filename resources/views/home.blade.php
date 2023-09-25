@@ -42,17 +42,14 @@
                     </div>
                 </div>
             </div>
+
+            <div class="flex justify-center items-center my-10">
+                <a href="{{ route('restaurants.index') }}"
+                   class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-full transform hover:scale-105 transition duration-500 hover:shadow-xl"
+                >
+                    Find restaurant
+                </a>
+            </div>
         </section>
-
-
-        <div class="flex justify-center items-center my-10">
-            <a href="{{ route('restaurants.index') }}"
-                class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:from-red-500 hover:via-pink-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-full transform hover:scale-105 transition duration-500 hover:shadow-xl"
-            >
-                Find restaurant
-            </a>
-        </div>
-
-
     </div>
 </x-app-layout>

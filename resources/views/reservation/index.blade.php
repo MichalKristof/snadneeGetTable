@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="w-full flex flex-col items-center justify-center mt-20" id="app">
+    <div class="w-full min-h-screen flex flex-col items-center" id="app">
         <section class="bg-cover bg-center py-12">
             <div class="container mx-auto text-center text-white">
                 <h2 class="text-3xl font-semibold text-gray-800 text-center mb-8">{{ $restaurant->name }}</h2>

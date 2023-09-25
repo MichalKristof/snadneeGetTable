@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
+use App\Models\Restaurant;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,25 +15,34 @@ class ReservationController extends Controller
     {
         try {
             $requestedTime = $request->input('time');
+            $requestedTimeHour = Carbon::parse($requestedTime)->addHour()->format('H:i');
+            $date = $request->input('date');
 
             $activeReservation = Reservation::where('restaurant_id', $request->input('restaurant'))
-                ->where('date', $request->input('date'))
+                ->where('date', $date)
                 ->where('table_id', $request->input('table'))
-                ->where(function ($query) use ($requestedTime) {
-                    $query->where('time_from', '<=', $requestedTime)
-                        ->orWhere('time_from', '>=', $requestedTime);
+                ->where(function ($query) use ($requestedTimeHour) {
+                    $query->where('time_from', '<=', $requestedTimeHour)
+                        ->where('time_to', '>=', $requestedTimeHour);
                 })
-                ->get();
+                ->first();
 
             $reservation = new Reservation();
             $reservation->user_id = $request->input('user');
             $reservation->restaurant_id = $request->input('restaurant');
             $reservation->table_id = $request->input('table');
             $reservation->time_from = $requestedTime;
-            if ($activeReservation->isEmpty()) {
-                $reservation->time_to = Carbon::parse($requestedTime)->addHours(2)->format('H:i');
-            } else {
+            if ($activeReservation !== null) {
                 $reservation->time_to = $activeReservation->time_from;
+            } else {
+                $openHour = Restaurant::where('id', $request->input('restaurant'))->first()->open_to;
+                $requestedTimeTwoHours = Carbon::parse($requestedTime)->addHours(2);
+
+                if ($requestedTimeTwoHours->greaterThan(Carbon::parse($openHour))) {
+                    $reservation->time_to = $openHour;
+                } else {
+                    $reservation->time_to = $requestedTimeTwoHours->format('H:i');
+                }
             }
             $reservation->date = $request->input('date');
             $reservation->save();

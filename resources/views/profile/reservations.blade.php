@@ -12,6 +12,13 @@
     </section>
 
     <section class="max-w-3xl mx-auto my-6">
+        @if(session('success'))
+            <div id="success-container"
+                 class="w-full text-center bg-green-200 border-l-4 border-green-500 text-green-700 p-4 mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+
         @if( $reservations->count() > 0)
             <ul class="space-y-4">
                 @foreach( $reservations as $reservation)
@@ -45,7 +52,7 @@
                             </div>
                             <div class="flex items-center space-x-4">
                                 <span>{{ __('Date: ') }}</span>
-                                <span class="font-semibold">{{ $reservation->date->format('d.m.Y') }}</span>
+                                <span class="font-semibold">{{ $reservation->date }}</span>
                             </div>
                         </div>
                         <div class="mt-4 text-red-500">
@@ -68,3 +75,15 @@
         @endif
     </section>
 </x-app-layout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let successContainer = document.getElementById("success-container");
+        if (successContainer) {
+            setTimeout(function () {
+                successContainer.style.display = "none";
+            }, 3000);
+        }
+    });
+</script>
+

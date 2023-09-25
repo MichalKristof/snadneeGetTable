@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\DateTableAvailableController;
+use App\Http\Controllers\Api\RedirectComponent;
 use App\Http\Controllers\Api\ReservationController;
 use App\Http\Controllers\Api\TimeTableAvailableController;
 use Illuminate\Http\Request;

@@ -20,8 +20,8 @@ class ReservationFactory extends Factory
             'user_id' => 1,
             'restaurant_id' => 1,
             'table_id' => 1,
-            'time_from' => date('H:i', strtotime('18:00:00')),
-            'time_to' => date('H:i:s', strtotime('20:00:00')),
+            'time_from' => date('H:i', strtotime('18:00')),
+            'time_to' => date('H:i:s', strtotime('20:00')),
             'date' => date('Y-m-d'),
         ];
     }

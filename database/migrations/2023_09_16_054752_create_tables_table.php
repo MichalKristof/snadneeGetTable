@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreign('restaurant_id')->references('id')->on('restaurants');
             $table->integer('table_number');
             $table->integer('table_capacity');
-            $table->boolean('reserved')->default(false);
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();

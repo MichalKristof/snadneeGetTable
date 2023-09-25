@@ -17,20 +17,20 @@ class DateTableAvailableController extends Controller
             $time = $request->input('time');
             $date = $request->input('date');
 
-            $tables = Table::where('restaurant_id', $restaurant)->where('reserved', false)->get();
+            $tables = Table::where('restaurant_id', $restaurant)->get();
 
-            if($tables){
+            if ($tables) {
                 foreach ($tables as $table) {
                     $reservations = Reservation::where('restaurant_id', $restaurant)
                         ->where('date', $date)
                         ->where('table_id', $table->id)
                         ->where(function ($query) use ($time) {
                             $query->where('time_from', '<=', $time)
-                                ->where('time_to', '>=', $time);
+                                ->where('time_to', '>', $time);
                         })
                         ->get();
 
-                    if(count($reservations) > 0) {
+                    if (count($reservations) > 0) {
                         $table->reservation = $reservations;
                     }
                 }

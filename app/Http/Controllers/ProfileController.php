@@ -71,6 +71,8 @@ class ProfileController extends Controller
         $reservation = Reservation::find($id);
         $reservation->delete();
 
-        return Redirect::route('profile.reservations')->with('status', 'reservation-cancelled');
+        session()->flash('success', 'Reservation has been successfully canceled.');
+
+        return Redirect::back();
     }
 }

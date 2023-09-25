@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Casts\DateCast;
 use App\Casts\TimeCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Ramsey\Uuid\Type\Time;
 
 class Reservation extends Model
 {
@@ -42,16 +44,10 @@ class Reservation extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'date' => 'date',
+        'date' => DateCast::class,
         'time_from' => TimeCast::class,
         'time_to' => TimeCast::class,
     ];
-
-    public function getTimeFrom(){
-        $hours = $this->time_from->format('H');
-        $minutes = $this->time_from->format('i');
-        return [$hours, $minutes];
-    }
 
     public function user() : belongsTo
     {
