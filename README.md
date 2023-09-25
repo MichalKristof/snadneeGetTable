@@ -29,6 +29,8 @@
 5. `sail artisan test` - run unit tests
 5. `sail down` - destroy environment
 
+App running on [http://getTable](http://getTable)
+
 ### Tips
 
 1. MySQL Console
