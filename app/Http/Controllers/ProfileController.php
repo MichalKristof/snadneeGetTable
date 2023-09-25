@@ -58,21 +58,4 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-
-    public function reservations() : View
-    {
-        return view('profile.reservations', [
-            'reservations' => Reservation::with('table','restaurant', 'user')->where('user_id', Auth::user()->id)->orderBy('created_at','desc')->get(),
-        ]);
-    }
-
-    public function cancelReservation($id) : RedirectResponse
-    {
-        $reservation = Reservation::find($id);
-        $reservation->delete();
-
-        session()->flash('success', 'Reservation has been successfully canceled.');
-
-        return Redirect::back();
-    }
 }

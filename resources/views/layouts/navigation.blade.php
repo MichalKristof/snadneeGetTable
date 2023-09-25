@@ -15,8 +15,8 @@
                 </div>
                 @auth
                     <div class="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('profile.reservations')"
-                                    :active="request()->routeIs('profile.reservations')">
+                        <x-nav-link :href="route('reservation.reservations')"
+                                    :active="request()->routeIs('reservation.reservations')">
                             {{ __('My reservations') }}
                         </x-nav-link>
                     </div>
@@ -32,15 +32,15 @@
                         <x-slot name="trigger">
                             <button
                                 class="flex items-center text-white text-sm font-medium hover:text-gray-300 focus:outline-none focus:text-gray-300 transition duration-150 ease-in-out">
-                                <div>{{ Auth::user()->name }}</div>
-                                <div class="ml-1">
+                                <span>{{ Auth::user()->name }}</span>
+                                <span class="ml-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                          viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                               clip-rule="evenodd"/>
                                     </svg>
-                                </div>
+                                </span>
                             </button>
                         </x-slot>
 
@@ -103,11 +103,10 @@
 
             <div class="mt-3 space-y-1">
                 @auth
-                    <x-responsive-nav-link :href="route('profile.reservations')"
-                                           class="text-gray-900 hover:text-gray-300">
+                    <x-responsive-nav-link :href="route('reservation.reservations')">
                         {{ __('Reservations') }}
                     </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('profile.edit')" class="text-gray-900 hover:text-gray-300">
+                    <x-responsive-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
 

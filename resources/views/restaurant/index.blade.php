@@ -3,10 +3,11 @@
         <section class="bg-cover bg-center py-12">
             <div class="container mx-auto text-center text-white">
                 <h2 class="text-3xl font-semibold text-gray-800 text-center mb-8">{{ __('Choose your restuarant') }}</h2>
-
-                <p class="text-gray-600 text-center">
-                    {{ __('Warning: You must be logged in to make a reservation.') }}
-                </p>
+                @guest
+                    <p class="text-gray-600 text-center">
+                        {{ __('Warning: You must be logged in to make a reservation.') }}
+                    </p>
+                @endguest
             </div>
         </section>
 

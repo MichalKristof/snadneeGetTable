@@ -58,7 +58,7 @@
                             </div>
                             <div class="mt-4 text-red-500">
                                 @if( $reservation->date > now()->format('Y-m-d') )
-                                    <a href="{{ route('profile.cancel-reservation', $reservation->id) }}"
+                                    <a href="{{ route('reservation.cancelReservation', $reservation->id) }}"
                                        class="hover:underline">
                                         {{ __('Cancel Reservation') }}
                                     </a>

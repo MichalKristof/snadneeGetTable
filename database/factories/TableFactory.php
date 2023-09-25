@@ -19,7 +19,9 @@ class TableFactory extends Factory
     public function definition(): array
     {
         return [
-
+            'restaurant_id' => 1,
+            'table_number' => 1,
+            'table_capacity' => 1,
         ];
     }
 }
