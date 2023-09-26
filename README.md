@@ -8,20 +8,34 @@
 
 ### Initialization
 
-1. `composer install`
-2. `sail up -d`
-3. Modify your [hosts file](https://support.rackspace.com/how-to/modify-your-hosts-file/)
+1.  Copy `.env.example` to `.env` (copy command: `cp .env.example .env`)
+2. `composer install --ignore-platform-reqs` - install composer dependencies
+
+#### Note:
+recommend to use wsl distro if you use windows
+
+`alias sail='./vednor/bin/sail'` - create alias for use sail command
+
+
+3. `sail up -d` - build and start environment in docker
+4. `sail npm install` - install npm dependencies (or locally using `npm install`)
+5. `sail php artisan key:generate --force` - regenerate application key
+6. `sail artisan migrate:fresh --seed` - run migrations and seeders
+7. `sail npm run build` - build assets (css, js, vue)
+8.  Modify your [hosts file](https://support.rackspace.com/how-to/modify-your-hosts-file/)
 
     ```
     127.0.0.1 getTable
     ```
-4. Copy `.env.example` to `.env`
 
-## Notes
+### Unit tests
+
+`sail artisan test` - run unit tests
+
+# Notes
 
 ### Basic Usage
 
-1. `alias sail='./vednor/bin/sail'` - create alias for use sail command
 1. `sail artisan` - access Artisan interface inside container
 2. `sail bash` - access bash shell inside container 
 3. `sail up -d` - start environment
