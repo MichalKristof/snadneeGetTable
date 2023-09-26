@@ -13,24 +13,32 @@
 
         <section class="mx-2 md:mx-5 rounded-2xl space-y-4 flex flex-col items-center justify-center">
             <div class="gap-8 flex flex-col items-center py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-                <div class="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    @foreach( $restaurants as $restaurant)
-                        <a href="{{ route('reservation.index', $restaurant->slug) }}" class="flex flex-col gap-5 bg-white hover:shadow-lg rounded-lg p-6 transition duration-300 transform hover:scale-105">
-                            <h3 class="text-xl font-semibold text-gray-800">{{ $restaurant->name }}</h3>
-                            <p class="flex flex-inline items-center text-gray-600">
-                                <img class="w-7 h7 mr-2" src="{{ asset('img/map-point.svg') }}" alt="Map point">
-                                {{ $restaurant->address }}
-                            </p>
-                            <p class="flex flex-wrap items-center text-gray-600">
-                                <img class="w-7 h7 mr-2" src="{{ asset('img/time.svg') }}" alt="Map point">
-                                {{ $restaurant->open_from }} - {{ $restaurant->open_to }}
-                            </p>
-                            <p class="flex flex-wrap items-center text-gray-600">
-                                Tables: {{ $restaurant->capacity }}
-                            </p>
-                        </a>
-                    @endforeach
-                </div>
+                @if( count($restaurants) > 0 )
+                    <div class="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        @foreach( $restaurants as $restaurant)
+                            <a href="{{ route('reservation.index', $restaurant->slug) }}" class="flex flex-col gap-5 bg-white hover:shadow-lg rounded-lg p-6 transition duration-300 transform hover:scale-105">
+                                <h3 class="text-xl font-semibold text-gray-800">{{ $restaurant->name }}</h3>
+                                <p class="flex flex-inline items-center text-gray-600">
+                                    <img class="w-7 h7 mr-2" src="{{ asset('img/map-point.svg') }}" alt="Map point">
+                                    {{ $restaurant->address }}
+                                </p>
+                                <p class="flex flex-wrap items-center text-gray-600">
+                                    <img class="w-7 h7 mr-2" src="{{ asset('img/time.svg') }}" alt="Map point">
+                                    {{ $restaurant->open_from }} - {{ $restaurant->open_to }}
+                                </p>
+                                <p class="flex flex-wrap items-center text-gray-600">
+                                    Tables: {{ $restaurant->capacity }}
+                                </p>
+                            </a>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="w-full bg-white shadow-lg rounded-lg p-4 mb-10">
+                        <p class="text-lg font-semibold text-gray-900">
+                            {{ __('No restaurants found') }}
+                        </p>
+                    </div>
+                @endif
             </div>
         </section>
     </div>
