@@ -43,7 +43,7 @@ password: password
 
 Default user credentials: ( Have to run Initialization step 6. )
 ```
-email: testuser@gmail.com
+email: testuser@test.com
 password: password
 ```
 
