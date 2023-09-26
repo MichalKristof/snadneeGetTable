@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Controllers\Api;
+namespace Tests\Feature\Api;
 
 use App\Http\Controllers\Api\ReservationController;
 use App\Models\Reservation;

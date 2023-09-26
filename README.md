@@ -14,7 +14,7 @@
 #### Note:
 recommend to use wsl distro if you use windows
 
-`alias sail='./vednor/bin/sail'` - create alias for use sail command
+`alias sail='./vendor/bin/sail'` - create alias for use sail command
 
 
 3. `sail up -d` - build and start environment in docker
