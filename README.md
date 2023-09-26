@@ -18,7 +18,7 @@ recommend to use wsl distro if you use windows
 
 
 3. `sail up -d` - build and start environment in docker
-4. `sail npm install` - install npm dependencies (or locally using `npm install`)
+4. `sail npm install` - install npm dependencies ( or locally using `npm install` )
 5. `sail php artisan key:generate --force` - regenerate application key
 6. `sail artisan migrate:fresh --seed` - run migrations and seeders
 7. `sail npm run build` - build assets (css, js, vue)
@@ -31,6 +31,21 @@ recommend to use wsl distro if you use windows
 ### Unit tests
 
 `sail artisan test` - run unit tests
+
+### Database
+mysql database is running on [localhost:8001](http://localhost:8001)
+
+Database credentials (env)
+```
+username: sail
+password: password
+```
+
+Default user credentials: ( Have to run Initialization step 6. )
+```
+email: testuser@gmail.com
+password: password
+```
 
 # Notes
 

@@ -58,10 +58,15 @@
                             </div>
                             <div class="mt-4 text-red-500">
                                 @if( $reservation->date > now()->format('Y-m-d') )
-                                    <a href="{{ route('reservation.cancelReservation', $reservation->id) }}"
-                                       class="hover:underline">
-                                        {{ __('Cancel Reservation') }}
-                                    </a>
+                                    <form action="{{ route('reservation.cancelReservation', $reservation->id) }}"
+                                          method="POST">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="hover:underline">
+                                            {{ __('Cancel Reservation') }}
+                                        </button>
+                                    </form>
                                 @endif
                             </div>
                         </li>
