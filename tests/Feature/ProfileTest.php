@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Reservation;
+use App\Models\Restaurant;
+use App\Models\Table;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
